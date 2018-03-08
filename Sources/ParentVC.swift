@@ -26,6 +26,8 @@ class ParentVC: UIViewController {
         modalButton.center = CGPoint(x: view.center.x, y: view.center.y + 44)
     }
 
+    var popupTransitionDelegate: PopupTransitionDelegate?
+
     @objc func handlePopupButtonTap() {
         let vc = ChildVC()
 
@@ -33,9 +35,9 @@ class ParentVC: UIViewController {
         let endFrame = CGRect(x: 0, y: view.bounds.height - startFrame.height + 5,
                                    width: startFrame.width, height: startFrame.height)
 
-        vc.customTransition = PopupTransitionDelegate(start: startFrame, end: endFrame, presenting: vc)
+        popupTransitionDelegate = PopupTransitionDelegate(start: startFrame, end: endFrame, viewController: vc)
 
-        vc.transitioningDelegate = vc.customTransition
+        vc.transitioningDelegate = popupTransitionDelegate
         vc.view.layer.cornerRadius = 10
         vc.modalPresentationStyle = .custom
         present(vc, animated: true, completion: nil)

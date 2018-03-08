@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F502486D205103AA00F701B8 /* PopupTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F502486C205103AA00F701B8 /* PopupTransitionDriver.swift */; };
 		F54AAF6C2048613B0051FE67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF6B2048613B0051FE67 /* AppDelegate.swift */; };
 		F54AAF6E2048613B0051FE67 /* ParentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF6D2048613B0051FE67 /* ParentVC.swift */; };
 		F54AAF732048613B0051FE67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F54AAF722048613B0051FE67 /* Assets.xcassets */; };
 		F54AAF762048613B0051FE67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54AAF742048613B0051FE67 /* LaunchScreen.storyboard */; };
 		F54AAF81204862360051FE67 /* PopupTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF7E204862360051FE67 /* PopupTransitionDelegate.swift */; };
-		F54AAF82204862360051FE67 /* CustomAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF7F204862360051FE67 /* CustomAnimationController.swift */; };
-		F54AAF83204862360051FE67 /* CustomPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF80204862360051FE67 /* CustomPresentationController.swift */; };
 		F54AAF85204862550051FE67 /* ChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF84204862550051FE67 /* ChildVC.swift */; };
-		F54AAF8820487BDD0051FE67 /* CustomInteractiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF8720487BDD0051FE67 /* CustomInteractiveController.swift */; };
+		F5FB16652051C7CB00E3A54E /* PopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FB16642051C7CB00E3A54E /* PopupPresentationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F502486C205103AA00F701B8 /* PopupTransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTransitionDriver.swift; sourceTree = "<group>"; };
 		F54AAF682048613B0051FE67 /* ExampleTransitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleTransitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54AAF6B2048613B0051FE67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F54AAF6D2048613B0051FE67 /* ParentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentVC.swift; sourceTree = "<group>"; };
@@ -26,10 +26,8 @@
 		F54AAF752048613B0051FE67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F54AAF772048613B0051FE67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F54AAF7E204862360051FE67 /* PopupTransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupTransitionDelegate.swift; sourceTree = "<group>"; };
-		F54AAF7F204862360051FE67 /* CustomAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnimationController.swift; sourceTree = "<group>"; };
-		F54AAF80204862360051FE67 /* CustomPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPresentationController.swift; sourceTree = "<group>"; };
 		F54AAF84204862550051FE67 /* ChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildVC.swift; sourceTree = "<group>"; };
-		F54AAF8720487BDD0051FE67 /* CustomInteractiveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveController.swift; sourceTree = "<group>"; };
+		F5FB16642051C7CB00E3A54E /* PopupPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPresentationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +64,8 @@
 				F54AAF6D2048613B0051FE67 /* ParentVC.swift */,
 				F54AAF84204862550051FE67 /* ChildVC.swift */,
 				F54AAF7E204862360051FE67 /* PopupTransitionDelegate.swift */,
-				F54AAF8620487B8C0051FE67 /* Components */,
+				F502486C205103AA00F701B8 /* PopupTransitionDriver.swift */,
+				F5FB16642051C7CB00E3A54E /* PopupPresentationController.swift */,
 				F54AAF7D2048614F0051FE67 /* Support */,
 			);
 			path = Sources;
@@ -80,16 +79,6 @@
 				F54AAF772048613B0051FE67 /* Info.plist */,
 			);
 			name = Support;
-			sourceTree = "<group>";
-		};
-		F54AAF8620487B8C0051FE67 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				F54AAF7F204862360051FE67 /* CustomAnimationController.swift */,
-				F54AAF8720487BDD0051FE67 /* CustomInteractiveController.swift */,
-				F54AAF80204862360051FE67 /* CustomPresentationController.swift */,
-			);
-			name = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,12 +152,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5FB16652051C7CB00E3A54E /* PopupPresentationController.swift in Sources */,
 				F54AAF6E2048613B0051FE67 /* ParentVC.swift in Sources */,
-				F54AAF82204862360051FE67 /* CustomAnimationController.swift in Sources */,
-				F54AAF83204862360051FE67 /* CustomPresentationController.swift in Sources */,
+				F502486D205103AA00F701B8 /* PopupTransitionDriver.swift in Sources */,
 				F54AAF81204862360051FE67 /* PopupTransitionDelegate.swift in Sources */,
 				F54AAF6C2048613B0051FE67 /* AppDelegate.swift in Sources */,
-				F54AAF8820487BDD0051FE67 /* CustomInteractiveController.swift in Sources */,
 				F54AAF85204862550051FE67 /* ChildVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

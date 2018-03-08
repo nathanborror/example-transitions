@@ -1,79 +1,105 @@
 import UIKit
 
-class PopupTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
+class PopupTransitionDelegate: NSObject,
+                               UIViewControllerTransitioningDelegate,
+                               UIViewControllerInteractiveTransitioning,
+                               UIViewControllerAnimatedTransitioning {
 
-    private let options: CustomAnimationController.Options
-    private let presenting: UIViewController
-    private var interactiveTransition: UIPercentDrivenInteractiveTransition
+    private weak var viewController: UIViewController?
 
-    init(start: CGRect, end: CGRect, presenting viewController: UIViewController) {
-        self.options = CustomAnimationController.Options(
-            frame: (start: start, end: end),
-            alpha: (start: 1, end: 1),
-            transform: .identity,
-            duration: 0.35,
-            delay: 0.0,
-            dampingRatio: 0.85)
-        self.presenting = viewController
-        self.interactiveTransition = UIPercentDrivenInteractiveTransition()
+    private let animationStartFrame: CGRect
+    private let animationEndFrame: CGRect
+    private let animationDuration: TimeInterval = 0.35
+    private let animationDampingRatio: CGFloat = 0.85
+    private let panGesture: UIPanGestureRecognizer
+
+    private var isPresenting = true
+    private var driver: PopupTransitionDriver?
+    private var isInteractive = false
+    private var presentationController: PopupPresentationController?
+
+    init(start: CGRect, end: CGRect, viewController: UIViewController) {
+        self.animationStartFrame = start
+        self.animationEndFrame = end
+        self.viewController = viewController
+        self.panGesture = UIPanGestureRecognizer()
         super.init()
-
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-        panGesture.cancelsTouchesInView = false
-        panGesture.maximumNumberOfTouches = 1
-        presenting.view.addGestureRecognizer(panGesture)
-
-        print("+ init: PopupTransitionDelegate")
+        configureGesture()
     }
 
-    deinit {
-        print("- deinit: PopupTransitionDelegate")
+    func configureGesture() {
+        panGesture.addTarget(self, action: #selector(handlePanGesture))
+        panGesture.cancelsTouchesInView = false
+        panGesture.maximumNumberOfTouches = 1
+        viewController?.view.addGestureRecognizer(panGesture)
     }
 
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        let translate = recognizer.translation(in: recognizer.view)
-        let percent = translate.y / recognizer.view!.bounds.height
-
-        switch recognizer.state {
-        case .began:
-            presenting.
-
-        case .changed:
-            interactiveTransition.update(percent)
-
-        case .ended:
-            let velocity = recognizer.velocity(in: recognizer.view)
-            if (percent > 0.5 && velocity.y == 0) || velocity.y > 0 {
-                interactiveTransition.finish()
-            } else {
-                interactiveTransition.cancel()
-            }
-
-        case .cancelled:
-            interactiveTransition.cancel()
-
-        default:
-            interactiveTransition.cancel()
+        if recognizer.state == .began && driver == nil {
+            isInteractive = true
+            viewController?.dismiss(animated: true, completion: nil)
         }
     }
 
-    // MARK: - Delegate Methods
+    // MARK: - UIViewControllerTransitioningDelegate
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController,
                              source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return CustomAnimationController(.presenting, options: options)
+        isPresenting = true
+        return self
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return CustomAnimationController(.dismissing, options: options)
+        isPresenting = false
+        return self
+    }
+
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return self
+    }
+
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return self
     }
 
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?,
                                 source: UIViewController) -> UIPresentationController? {
-        return CustomPresentationController(color: UIColor(white: 0, alpha: 0.3), presented: presented, presenting: presenting)
+        presentationController = PopupPresentationController(presentedViewController: presented, presenting: presenting)
+        return presentationController
     }
 
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactiveTransition
+    // MARK: - UIViewControllerInteractiveTransitioning
+
+    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        let options = PopupTransitionDriver.Options(
+            operation: isPresenting ? .present : .dismiss,
+            startFrame: animationStartFrame,
+            endFrame: animationEndFrame,
+            duration: animationDuration,
+            dampingRatio: animationDampingRatio
+        )
+        driver = PopupTransitionDriver(options: options, context: transitionContext, gesture: panGesture)
+
+        // Pass the driver's property animator through to the presentation controller
+        // so it can syncronize its animations alongside.
+        presentationController?.propertyAnimator = driver?.propertyAnimator
+    }
+
+    var wantsInteractiveStart: Bool {
+        return isInteractive
+    }
+
+    // MARK: - UIViewControllerAnimatedTransitioning
+
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return animationDuration
+    }
+
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {}
+
+    func animationEnded(_ transitionCompleted: Bool) {
+        driver = nil
+        isInteractive = false
+        isPresenting = true
     }
 }
