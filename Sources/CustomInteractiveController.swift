@@ -2,23 +2,23 @@ import UIKit
 
 class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
 
-    private(set) var isInteractive: Bool
-
     private var viewController: UIViewController
 
-    init(presented viewController: UIViewController) {
+    init?(presented viewController: UIViewController?) {
+        guard let viewController = viewController else { return nil }
         self.viewController = viewController
-        self.isInteractive = false
         super.init()
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGesture.cancelsTouchesInView = false
         panGesture.maximumNumberOfTouches = 1
         self.viewController.view.addGestureRecognizer(panGesture)
+
+        print("+ init: CustomInteractiveTransition")
     }
 
     deinit {
-        print("deinit: CustomInteractiveTransition")
+        print("- deinit: CustomInteractiveTransition")
     }
 
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {
@@ -27,7 +27,6 @@ class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
 
         switch recognizer.state {
         case .began:
-            isInteractive = true
             viewController.dismiss(animated: true)
 
         case .changed:
@@ -40,15 +39,12 @@ class CustomInteractiveTransition: UIPercentDrivenInteractiveTransition {
             } else {
                 cancel()
             }
-            isInteractive = false
 
         case .cancelled:
             cancel()
-            isInteractive = false
 
         default:
             cancel()
-            isInteractive = false
         }
     }
 }

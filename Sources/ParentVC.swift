@@ -29,19 +29,13 @@ class ParentVC: UIViewController {
     @objc func handlePopupButtonTap() {
         let vc = ChildVC()
 
-        // Beginning frame is where the view will start and end frame is where it'll
-        // spring to. Adding a bit of padding so the parent view doesn't show through
-        // the bottom of the screen when the view is settling into place.
+        let startFrame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: view.bounds.height / 2)
+        let endFrame = CGRect(x: 0, y: view.bounds.height - startFrame.height + 5,
+                                   width: startFrame.width, height: startFrame.height)
 
-        let popupBeginFrame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: view.bounds.height / 2)
-        let popupEndFrame = CGRect(x: 0, y: view.bounds.height - popupBeginFrame.height + 5,
-                                   width: popupBeginFrame.width, height: popupBeginFrame.height)
+        vc.customTransition = PopupTransitionDelegate(start: startFrame, end: endFrame, presenting: vc)
 
-        let popupInteractiveTransition = CustomInteractiveTransition(presented: vc)
-        let popupTransition = PopupTransitionDelegate(begin: popupBeginFrame, end: popupEndFrame)
-        popupTransition.interactiveController = popupInteractiveTransition
-
-        vc.transitioningDelegate = popupTransition
+        vc.transitioningDelegate = vc.customTransition
         vc.view.layer.cornerRadius = 10
         vc.modalPresentationStyle = .custom
         present(vc, animated: true, completion: nil)

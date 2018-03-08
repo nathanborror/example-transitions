@@ -4,6 +4,8 @@ class ChildVC: UIViewController {
 
     let button = UIButton(type: .system)
 
+    var customTransition: PopupTransitionDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = view.tintColor

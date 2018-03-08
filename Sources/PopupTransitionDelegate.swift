@@ -2,68 +2,78 @@ import UIKit
 
 class PopupTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
 
-    let animationController: CustomAnimationController
+    private let options: CustomAnimationController.Options
+    private let presenting: UIViewController
+    private var interactiveTransition: UIPercentDrivenInteractiveTransition
 
-    // Interactive controller is not necessary but if it's present the dismissal
-    // animation will adjust its springs and easing curve so the presented view
-    // tracks the touch position rather than veering away when the pan gesture
-    // updates the transition progress.
-    var interactiveController: CustomInteractiveTransition?
-
-    init(begin: CGRect, end: CGRect) {
-
-        let config = CustomAnimationController.Options(
-            frameBegin: begin,
-            frameEnd: end,
-            contentTransform: .identity,
+    init(start: CGRect, end: CGRect, presenting viewController: UIViewController) {
+        self.options = CustomAnimationController.Options(
+            frame: (start: start, end: end),
+            alpha: (start: 1, end: 1),
+            transform: .identity,
             duration: 0.35,
             delay: 0.0,
-            springDamping: 0.85,
-            springVelocity: 0.4,
-            alphaBegin: 1,
-            alphaEnd: 1,
-            options: [.curveEaseInOut])
+            dampingRatio: 0.85)
+        self.presenting = viewController
+        self.interactiveTransition = UIPercentDrivenInteractiveTransition()
+        super.init()
 
-        self.animationController = CustomAnimationController(configuration: config)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        panGesture.cancelsTouchesInView = false
+        panGesture.maximumNumberOfTouches = 1
+        presenting.view.addGestureRecognizer(panGesture)
+
+        print("+ init: PopupTransitionDelegate")
     }
+
+    deinit {
+        print("- deinit: PopupTransitionDelegate")
+    }
+
+    @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {
+        let translate = recognizer.translation(in: recognizer.view)
+        let percent = translate.y / recognizer.view!.bounds.height
+
+        switch recognizer.state {
+        case .began:
+            presenting.
+
+        case .changed:
+            interactiveTransition.update(percent)
+
+        case .ended:
+            let velocity = recognizer.velocity(in: recognizer.view)
+            if (percent > 0.5 && velocity.y == 0) || velocity.y > 0 {
+                interactiveTransition.finish()
+            } else {
+                interactiveTransition.cancel()
+            }
+
+        case .cancelled:
+            interactiveTransition.cancel()
+
+        default:
+            interactiveTransition.cancel()
+        }
+    }
+
+    // MARK: - Delegate Methods
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController,
                              source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animationController.stage = .presenting
-        return animationController
+        return CustomAnimationController(.presenting, options: options)
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animationController.stage = .dismissing
-
-        if interactiveController?.isInteractive ?? false {
-
-            // This delay prevents the view from stuttering when the pan gesture is transitioning
-            // between the 'began' state to 'changed'. Within that fraction of time the view
-            // controller's being dismissed before the percent driven controller has a chance to
-            // take over.
-            animationController.options.delay = 0.1
-
-            animationController.options.springDamping = nil
-            animationController.options.springVelocity = nil
-            animationController.options.options = [.curveLinear, .allowUserInteraction]
-        } else {
-            animationController.options.delay = 0.0
-            animationController.options.springDamping = 0.9
-            animationController.options.springVelocity = 0.4
-            animationController.options.options = [.curveEaseInOut]
-        }
-        return animationController
+        return CustomAnimationController(.dismissing, options: options)
     }
 
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?,
                                 source: UIViewController) -> UIPresentationController? {
-        let pc = CustomPresentationController(color: UIColor(white: 0, alpha: 0.3), presented: presented, presenting: presenting)
-        pc.transitioningDelegate = self
-        return pc
+        return CustomPresentationController(color: UIColor(white: 0, alpha: 0.3), presented: presented, presenting: presenting)
     }
 
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactiveController
+        return interactiveTransition
     }
 }

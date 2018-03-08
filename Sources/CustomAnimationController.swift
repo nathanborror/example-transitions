@@ -3,16 +3,12 @@ import UIKit
 class CustomAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
 
     struct Options {
-        var frameBegin: CGRect
-        var frameEnd: CGRect
-        var contentTransform: CGAffineTransform
+        var frame: (start: CGRect, end: CGRect)
+        var alpha: (start: CGFloat, end: CGFloat)
+        var transform: CGAffineTransform
         var duration: TimeInterval
         var delay: TimeInterval
-        var springDamping: CGFloat?
-        var springVelocity: CGFloat?
-        var alphaBegin: CGFloat
-        var alphaEnd: CGFloat
-        var options: UIViewAnimationOptions
+        var dampingRatio: CGFloat
     }
 
     enum Stage {
@@ -23,71 +19,72 @@ class CustomAnimationController: NSObject, UIViewControllerAnimatedTransitioning
     var options: Options
     var stage: Stage
 
-    init(configuration: Options) {
-        self.options = configuration
-        self.stage = .presenting
+    init(_ stage: Stage, options: Options) {
+        self.options = options
+        self.stage = stage
         super.init()
+        print("+ init: CustomAnimationController (\(stage))")
     }
 
     deinit {
-        print("deinit: CustomAnimationController")
+        print("- deinit: CustomAnimationController (\(stage))")
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        switch stage {
-        case .presenting: presentTransition(using: transitionContext)
-        case .dismissing: dismissTransition(using: transitionContext)
-        }
+        let transition = self.interruptibleAnimator(using: transitionContext)
+        transition.startAnimation()
     }
 
-    func presentTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    func presentTransition(using transitionContext: UIViewControllerContextTransitioning) -> UIViewPropertyAnimator {
         guard let presentedViewController = transitionContext.viewController(forKey: .to) else {
-            return
+            fatalError("Missing 'to' view controller from context")
         }
         let containerView = transitionContext.containerView
         containerView.addSubview(presentedViewController.view)
 
-        presentedViewController.view.alpha = options.alphaBegin
-        presentedViewController.view.transform = options.contentTransform
-        presentedViewController.view.frame = options.frameBegin
+        presentedViewController.view.alpha = options.alpha.start
+        presentedViewController.view.transform = options.transform
+        presentedViewController.view.frame = options.frame.start
 
-        animate(duration: transitionDuration(using: transitionContext), animations: {
-            presentedViewController.view.alpha = self.options.alphaEnd
+        let animator = UIViewPropertyAnimator(duration: transitionDuration(using: transitionContext),
+                                               dampingRatio: options.dampingRatio) {
+            presentedViewController.view.alpha = self.options.alpha.end
+            presentedViewController.view.frame = self.options.frame.end
             presentedViewController.view.transform = .identity
-            presentedViewController.view.frame = self.options.frameEnd
-        }, completion: { _ in
+        }
+        animator.addCompletion { position in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        })
+        }
+        animator.isInterruptible = true
+        return animator
     }
 
-    func dismissTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    func dismissTransition(using transitionContext: UIViewControllerContextTransitioning) -> UIViewPropertyAnimator {
         guard let presentedViewController = transitionContext.viewController(forKey: .from) else {
-            return
+            fatalError("Missing 'from' view controller from context")
         }
-        animate(duration: transitionDuration(using: transitionContext), animations: {
-            presentedViewController.view.alpha = self.options.alphaBegin
-            presentedViewController.view.transform = self.options.contentTransform
-            presentedViewController.view.frame = self.options.frameBegin
-        }, completion: { _ in
+
+        let animator = UIViewPropertyAnimator(duration: transitionDuration(using: transitionContext),
+                                               dampingRatio: options.dampingRatio) {
+            presentedViewController.view.alpha = self.options.alpha.start
+            presentedViewController.view.frame = self.options.frame.start
+            presentedViewController.view.transform = self.options.transform
+        }
+        animator.addCompletion { position in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        })
+        }
+        animator.isInterruptible = true
+        return animator
     }
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return options.duration
     }
 
-    private func animate(duration: TimeInterval, animations: @escaping () -> Void,
-                         completion: @escaping (Bool) -> Void) {
-        if let velocity = options.springVelocity, let damping = options.springDamping {
-            UIView.animate(withDuration: duration, delay: options.delay,
-                           usingSpringWithDamping: damping, initialSpringVelocity: velocity,
-                           options: options.options,
-                           animations: animations, completion: completion)
-        } else {
-            UIView.animate(withDuration: duration, delay: options.delay,
-                           options: options.options,
-                           animations: animations, completion: completion)
+    func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
+        switch stage {
+        case .presenting: return presentTransition(using: transitionContext)
+        case .dismissing: return dismissTransition(using: transitionContext)
         }
     }
 }
