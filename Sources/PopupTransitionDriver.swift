@@ -121,8 +121,16 @@ class PopupTransitionDriver: NSObject {
     }
 
     private func animate(to position: UIViewAnimatingPosition) {
+
+        // Reverse animation when returning to start position
         propertyAnimator.isReversed = (position == .start)
-        propertyAnimator.startAnimation()
+
+        // Start or continue the animator
+        if propertyAnimator.state == .inactive {
+            propertyAnimator.startAnimation()
+        } else {
+            propertyAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 1)
+        }
     }
 
     private func progressStep(for translation: CGPoint, in view: UIView?) -> CGFloat {
