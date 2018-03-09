@@ -129,11 +129,19 @@ class PopupTransitionDriver: NSObject {
         if propertyAnimator.state == .inactive {
             propertyAnimator.startAnimation()
         } else {
-            propertyAnimator.continueAnimation(withTimingParameters: nil, durationFactor: 1)
+            let timingParams = timingParameters()
+            let durationFactor = 1 - propertyAnimator.fractionComplete
+            propertyAnimator.continueAnimation(withTimingParameters: timingParams, durationFactor: durationFactor)
         }
     }
 
     private func progressStep(for translation: CGPoint, in view: UIView?) -> CGFloat {
         return (options.operation == .present ? -1.0 : 1.0) * translation.y / (view?.bounds.height ?? 0)
+    }
+
+    private func timingParameters() -> UISpringTimingParameters {
+        let velocity = panGesture.velocity(in: context.containerView)
+        let vector = CGVector(dx: velocity.x / 100, dy: velocity.y / 100)
+        return UISpringTimingParameters(dampingRatio: options.dampingRatio, initialVelocity: vector)
     }
 }
