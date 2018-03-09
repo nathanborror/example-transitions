@@ -2,25 +2,33 @@ import UIKit
 
 class ChildVC: UIViewController {
 
-    let button = UIButton(type: .system)
+    let textView = UITextView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = view.tintColor
 
-        button.setTitle("Dismiss", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(handleButtonTap), for: .primaryActionTriggered)
-        view.addSubview(button)
-    }
+        textView.frame = view.bounds
+        textView.backgroundColor = .clear
+        textView.textColor = .white
+        textView.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        textView.text = """
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        button.sizeToFit()
-        button.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-    }
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-    @objc func handleButtonTap() {
-        dismiss(animated: true)
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            """
+        textView.contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(textView)
     }
+}
+
+extension ChildVC: ScrollableViewController {
+    var scrollView: UIScrollView { return textView }
 }

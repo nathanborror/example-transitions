@@ -1,11 +1,13 @@
 import UIKit
 
 class PopupTransitionDelegate: NSObject,
+                               UIGestureRecognizerDelegate,
                                UIViewControllerTransitioningDelegate,
                                UIViewControllerInteractiveTransitioning,
                                UIViewControllerAnimatedTransitioning {
 
     private weak var viewController: UIViewController?
+    private var scrollUpdater: ScrollViewUpdater?
 
     private let animationStartFrame: CGRect
     private let animationEndFrame: CGRect
@@ -25,19 +27,36 @@ class PopupTransitionDelegate: NSObject,
         self.panGesture = UIPanGestureRecognizer()
         super.init()
         configureGesture()
+
+        if let scrollView = (viewController as? ScrollableViewController)?.scrollView {
+            self.scrollUpdater = ScrollViewUpdater(scrollView: scrollView)
+        }
     }
 
     func configureGesture() {
+        panGesture.delegate = self
         panGesture.addTarget(self, action: #selector(handlePanGesture))
         panGesture.maximumNumberOfTouches = 1
         viewController?.view.addGestureRecognizer(panGesture)
     }
 
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        if recognizer.state == .began && driver == nil {
+        guard scrollUpdater?.shouldDismiss() ?? true else {
+            driver?.cancel()
+            return
+        }
+        if (recognizer.state == .began || recognizer.state == .changed) && driver == nil {
             isInteractive = true
             viewController?.dismiss(animated: true, completion: nil)
+            recognizer.setTranslation(.zero, in: recognizer.view)
         }
+    }
+
+    // MARK: - UIGestureRecognizerDelegate
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 
     // MARK: - UIViewControllerTransitioningDelegate

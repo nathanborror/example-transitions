@@ -104,12 +104,20 @@ class PopupTransitionDriver: NSObject {
 
         let velocity = panGesture.velocity(in: context.containerView)
         if (propertyAnimator.fractionComplete > 0.5 && velocity.y == 0) || velocity.y > 0 {
-            context.finishInteractiveTransition()
-            animate(to: .end)
+            finish()
         } else {
-            context.cancelInteractiveTransition()
-            animate(to: .start)
+            cancel()
         }
+    }
+
+    func finish() {
+        context.finishInteractiveTransition()
+        animate(to: .end)
+    }
+
+    func cancel() {
+        context.cancelInteractiveTransition()
+        animate(to: .start)
     }
 
     private func animate(to position: UIViewAnimatingPosition) {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F502486D205103AA00F701B8 /* PopupTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F502486C205103AA00F701B8 /* PopupTransitionDriver.swift */; };
+		F508A0EF20520E8600001395 /* ScrollViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508A0EE20520E8600001395 /* ScrollViewUpdater.swift */; };
 		F54AAF6C2048613B0051FE67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF6B2048613B0051FE67 /* AppDelegate.swift */; };
 		F54AAF6E2048613B0051FE67 /* ParentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF6D2048613B0051FE67 /* ParentVC.swift */; };
 		F54AAF732048613B0051FE67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F54AAF722048613B0051FE67 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		F502486C205103AA00F701B8 /* PopupTransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTransitionDriver.swift; sourceTree = "<group>"; };
+		F508A0EE20520E8600001395 /* ScrollViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewUpdater.swift; sourceTree = "<group>"; };
 		F54AAF682048613B0051FE67 /* ExampleTransitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleTransitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54AAF6B2048613B0051FE67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F54AAF6D2048613B0051FE67 /* ParentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentVC.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				F54AAF7E204862360051FE67 /* PopupTransitionDelegate.swift */,
 				F502486C205103AA00F701B8 /* PopupTransitionDriver.swift */,
 				F5FB16642051C7CB00E3A54E /* PopupPresentationController.swift */,
+				F508A0EE20520E8600001395 /* ScrollViewUpdater.swift */,
 				F54AAF7D2048614F0051FE67 /* Support */,
 			);
 			path = Sources;
@@ -155,6 +158,7 @@
 				F5FB16652051C7CB00E3A54E /* PopupPresentationController.swift in Sources */,
 				F54AAF6E2048613B0051FE67 /* ParentVC.swift in Sources */,
 				F502486D205103AA00F701B8 /* PopupTransitionDriver.swift in Sources */,
+				F508A0EF20520E8600001395 /* ScrollViewUpdater.swift in Sources */,
 				F54AAF81204862360051FE67 /* PopupTransitionDelegate.swift in Sources */,
 				F54AAF6C2048613B0051FE67 /* AppDelegate.swift in Sources */,
 				F54AAF85204862550051FE67 /* ChildVC.swift in Sources */,
@@ -288,7 +292,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 294VZ3T33E;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = run.nathan.ExampleTransition;
@@ -305,7 +309,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 294VZ3T33E;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = run.nathan.ExampleTransition;
