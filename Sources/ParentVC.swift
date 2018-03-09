@@ -31,7 +31,7 @@ class ParentVC: UIViewController {
     @objc func handlePopupButtonTap() {
         let vc = ChildVC()
 
-        let startFrame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: view.bounds.height / 2)
+        let startFrame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: view.bounds.height / 1.25)
         let endFrame = CGRect(x: 0, y: view.bounds.height - startFrame.height + 5,
                                    width: startFrame.width, height: startFrame.height)
 

@@ -81,7 +81,7 @@ class PopupTransitionDriver: NSObject {
         case .began, .changed:
             let translation = recognizer.translation(in: context.containerView)
 
-            let percentComplete = propertyAnimator.fractionComplete + progressStep(for: translation)
+            let percentComplete = propertyAnimator.fractionComplete + progressStep(for: translation, in: recognizer.view)
 
             // Update the property animator's fraction complete to scrub it's animations
             propertyAnimator.fractionComplete = percentComplete
@@ -117,7 +117,7 @@ class PopupTransitionDriver: NSObject {
         propertyAnimator.startAnimation()
     }
 
-    private func progressStep(for translation: CGPoint) -> CGFloat {
-        return (options.operation == .present ? -1.0 : 1.0) * translation.y / context.containerView.bounds.midY
+    private func progressStep(for translation: CGPoint, in view: UIView?) -> CGFloat {
+        return (options.operation == .present ? -1.0 : 1.0) * translation.y / (view?.bounds.height ?? 0)
     }
 }
