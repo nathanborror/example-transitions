@@ -29,7 +29,6 @@ class PopupTransitionDelegate: NSObject,
 
     func configureGesture() {
         panGesture.addTarget(self, action: #selector(handlePanGesture))
-        panGesture.cancelsTouchesInView = false
         panGesture.maximumNumberOfTouches = 1
         viewController?.view.addGestureRecognizer(panGesture)
     }
