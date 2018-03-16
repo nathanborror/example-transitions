@@ -7,29 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F502486D205103AA00F701B8 /* PopupTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F502486C205103AA00F701B8 /* PopupTransitionDriver.swift */; };
+		F502486D205103AA00F701B8 /* CustomTransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F502486C205103AA00F701B8 /* CustomTransitionDriver.swift */; };
 		F508A0EF20520E8600001395 /* ScrollViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508A0EE20520E8600001395 /* ScrollViewUpdater.swift */; };
+		F52924D1205344EC00090D6A /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52924D0205344EC00090D6A /* CustomTransition.swift */; };
 		F54AAF6C2048613B0051FE67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF6B2048613B0051FE67 /* AppDelegate.swift */; };
 		F54AAF6E2048613B0051FE67 /* ParentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF6D2048613B0051FE67 /* ParentVC.swift */; };
 		F54AAF732048613B0051FE67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F54AAF722048613B0051FE67 /* Assets.xcassets */; };
 		F54AAF762048613B0051FE67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F54AAF742048613B0051FE67 /* LaunchScreen.storyboard */; };
-		F54AAF81204862360051FE67 /* PopupTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF7E204862360051FE67 /* PopupTransitionDelegate.swift */; };
+		F54AAF81204862360051FE67 /* CustomTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF7E204862360051FE67 /* CustomTransitionDelegate.swift */; };
 		F54AAF85204862550051FE67 /* ChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54AAF84204862550051FE67 /* ChildVC.swift */; };
-		F5FB16652051C7CB00E3A54E /* PopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FB16642051C7CB00E3A54E /* PopupPresentationController.swift */; };
+		F55E6B3C2053BD1E0053C5B2 /* CardPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E6B3B2053BD1E0053C5B2 /* CardPresentationController.swift */; };
+		F5FB16652051C7CB00E3A54E /* CustomPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FB16642051C7CB00E3A54E /* CustomPresentationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F502486C205103AA00F701B8 /* PopupTransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTransitionDriver.swift; sourceTree = "<group>"; };
+		F502486C205103AA00F701B8 /* CustomTransitionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionDriver.swift; sourceTree = "<group>"; };
 		F508A0EE20520E8600001395 /* ScrollViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewUpdater.swift; sourceTree = "<group>"; };
+		F52924D0205344EC00090D6A /* CustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
 		F54AAF682048613B0051FE67 /* ExampleTransitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleTransitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54AAF6B2048613B0051FE67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F54AAF6D2048613B0051FE67 /* ParentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentVC.swift; sourceTree = "<group>"; };
 		F54AAF722048613B0051FE67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F54AAF752048613B0051FE67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F54AAF772048613B0051FE67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F54AAF7E204862360051FE67 /* PopupTransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupTransitionDelegate.swift; sourceTree = "<group>"; };
+		F54AAF7E204862360051FE67 /* CustomTransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTransitionDelegate.swift; sourceTree = "<group>"; };
 		F54AAF84204862550051FE67 /* ChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildVC.swift; sourceTree = "<group>"; };
-		F5FB16642051C7CB00E3A54E /* PopupPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupPresentationController.swift; sourceTree = "<group>"; };
+		F55E6B3B2053BD1E0053C5B2 /* CardPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPresentationController.swift; sourceTree = "<group>"; };
+		F5FB16642051C7CB00E3A54E /* CustomPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPresentationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F540EEDC20570400008BA2A4 /* Custom Transition */ = {
+			isa = PBXGroup;
+			children = (
+				F52924D0205344EC00090D6A /* CustomTransition.swift */,
+				F54AAF7E204862360051FE67 /* CustomTransitionDelegate.swift */,
+				F502486C205103AA00F701B8 /* CustomTransitionDriver.swift */,
+				F5FB16642051C7CB00E3A54E /* CustomPresentationController.swift */,
+			);
+			name = "Custom Transition";
+			sourceTree = "<group>";
+		};
 		F54AAF5F2048613B0051FE67 = {
 			isa = PBXGroup;
 			children = (
@@ -65,10 +80,9 @@
 				F54AAF6B2048613B0051FE67 /* AppDelegate.swift */,
 				F54AAF6D2048613B0051FE67 /* ParentVC.swift */,
 				F54AAF84204862550051FE67 /* ChildVC.swift */,
-				F54AAF7E204862360051FE67 /* PopupTransitionDelegate.swift */,
-				F502486C205103AA00F701B8 /* PopupTransitionDriver.swift */,
-				F5FB16642051C7CB00E3A54E /* PopupPresentationController.swift */,
+				F55E6B3B2053BD1E0053C5B2 /* CardPresentationController.swift */,
 				F508A0EE20520E8600001395 /* ScrollViewUpdater.swift */,
+				F540EEDC20570400008BA2A4 /* Custom Transition */,
 				F54AAF7D2048614F0051FE67 /* Support */,
 			);
 			path = Sources;
@@ -155,13 +169,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5FB16652051C7CB00E3A54E /* PopupPresentationController.swift in Sources */,
+				F5FB16652051C7CB00E3A54E /* CustomPresentationController.swift in Sources */,
 				F54AAF6E2048613B0051FE67 /* ParentVC.swift in Sources */,
-				F502486D205103AA00F701B8 /* PopupTransitionDriver.swift in Sources */,
+				F502486D205103AA00F701B8 /* CustomTransitionDriver.swift in Sources */,
+				F55E6B3C2053BD1E0053C5B2 /* CardPresentationController.swift in Sources */,
 				F508A0EF20520E8600001395 /* ScrollViewUpdater.swift in Sources */,
-				F54AAF81204862360051FE67 /* PopupTransitionDelegate.swift in Sources */,
+				F54AAF81204862360051FE67 /* CustomTransitionDelegate.swift in Sources */,
 				F54AAF6C2048613B0051FE67 /* AppDelegate.swift in Sources */,
 				F54AAF85204862550051FE67 /* ChildVC.swift in Sources */,
+				F52924D1205344EC00090D6A /* CustomTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

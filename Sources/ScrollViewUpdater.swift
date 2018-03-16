@@ -4,15 +4,15 @@ protocol ScrollableViewController {
     var scrollView: UIScrollView { get }
 }
 
-class ScrollViewUpdater {
+class ScrollableUpdater {
 
     private var isDismissable = false
     private var offsetY: CGFloat {
         guard let scrollView = scrollView else { return 0 }
-        return scrollView.contentOffset.y + scrollView.contentInset.top
+        return scrollView.contentOffset.y
     }
 
-    private weak var scrollView: UIScrollView?
+    weak var scrollView: UIScrollView?
 
     private var offsetObservation: NSKeyValueObservation?
 
